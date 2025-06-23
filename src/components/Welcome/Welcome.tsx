@@ -3,6 +3,7 @@ import { IconArrowRight } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 import profile from './stefani.jpg'; // смени пътя ако е нужно
+import { Link } from 'react-router-dom';
 
 export default function Welcome() {
   return (
@@ -67,12 +68,14 @@ export default function Welcome() {
           </Text>
 
           <Group mt="md">
-            <Button variant="filled" color="indigo" radius="xl" size="md" rightSection={<IconArrowRight size={18} />}>
+            <Link to='/projects' style={{ textDecoration: 'none' }}><Button variant="filled" color="indigo" radius="xl" size="md" rightSection={<IconArrowRight size={18} />}>
               View Projects
             </Button>
-            <Button variant="outline" color="blue" radius="xl" size="md">
+            </Link>
+            <Link to='/contact' style={{ textDecoration: 'none' }}><Button variant="outline" color="blue" radius="xl" size="md">
               Contact Me
             </Button>
+            </Link>
           </Group>
         </Stack>
       </motion.div>
