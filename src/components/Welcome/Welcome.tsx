@@ -1,103 +1,81 @@
-
-import { Container, Title, Text, Button, Group, Grid, Card, Badge, Stack, Space } from '@mantine/core';
-import { motion } from 'framer-motion';
+import { Container, Title, Text, Button, Group, Image, Stack } from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
+import { motion } from 'framer-motion';
+import { Typewriter } from 'react-simple-typewriter';
+import profile from './stefani.jpg'; // смени пътя ако е нужно
 
 export default function Welcome() {
   return (
-  <><Container size="lg" py='xs' h={1000} style={{ backgroundColor: 'white', color: '#1f2937', minHeight: '5vh' }}>
-      {/* HERO Section */}
+    <Container
+      size="xl"
+      py="xl"
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.8 }}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          gap: '3rem',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+        }}
       >
-        <Title order={1} size="h1" style={{ color: '#6366f1' }}>
-          Здравей, аз съм [Твоето име]
-        </Title>
-        <Text size="xl" mt="sm">
-          Web дизайнер и разработчик с фокус върху UI/UX и съвременни технологии.
-        </Text>
-        <Group mt="xl">
-          <Button variant="filled" color="indigo" radius="xl" size="md" rightSection={<IconArrowRight size={18} />}>
-            Виж проектите ми
-          </Button>
-          <Button variant="outline" color="blue" radius="xl" size="md">
-            Свържи се с мен
-          </Button>
-        </Group>
-      </motion.div>
+        {/* LEFT: Profile image */}
+        <div style={{ flex: '1 1 300px', maxWidth: '400px' }}>
+          <Image
+            src={profile}
+            alt="Stefani profile"
+            radius="lg"
+            style={{
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
+              borderRadius: '1rem',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+            }}
+          />
+        </div>
 
-      {/* ABOUT */}
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        style={{ marginTop: '5rem' }}
-      >
-        <Title order={2} mb="sm">За мен</Title>
-        <Text>
-          Имам опит с TypeScript, React и Mantine. Обичам да създавам красиви и функционални потребителски интерфейси, комбинирайки дизайн и код.
-        </Text>
-      </motion.div>
+        {/* RIGHT: Typing text content */}
+        <Stack justify="md" style={{ flex: '1 1 400px', minWidth: '300px' }}>
+          <Title order={1} size="h1" style={{ color: '#1f2937' }}>
+            <Typewriter
+              words={["Hi, I'm Stefani", 'Web Designer & Front-End Developer']}
+              loop={true}
+              cursor
+              cursorStyle="|"
+              typeSpeed={70}
+              deleteSpeed={40}
+              delaySpeed={1500}
+            />
+          </Title>
 
-      {/* SKILLS */}
-      <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-        style={{ marginTop: '4rem' }}
-      >
-        <Title order={2} mb="sm">Технологии</Title>
-        <Group h="xs">
-          {['TypeScript', 'React', 'Mantine', 'Framer Motion', 'Figma'].map((tech) => (
-            <Badge color="blue" size="lg" variant="outline" radius="md" key={tech}>
-              {tech}
-            </Badge>
-          ))}
-        </Group>
-      </motion.div>
+          <Text size="md" style={{ lineHeight: 1.7 }}>
+            I hold a degree in <strong>Software Engineering</strong> from <strong>Baltic State Technical University "VOENMEH"</strong> in Saint Petersburg.
+            My passion for technology is matched by my dedication to performance and discipline as a competitive <strong>Acrobatic Rock’n’Roll</strong> dancer.
+            In my downtime, I love to explore new ideas through reading and continuous learning.
+          </Text>
 
-      {/* PROJECTS */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.7 }}
-        style={{ marginTop: '4rem' }}
-      >
-        <Title order={2} mb="sm">Проекти</Title>
-        <Grid>
-          {[1, 2, 3].map((index) => (
-            <Grid.Col span={4} key={index}>
-              <Card shadow="sm" padding="lg" radius="md" withBorder bg="#ffffff">
-                <Title order={4} style={{ color: '#0ea5e9' }}>Проект {index}</Title>
-                <Text mt="sm">Описание на проекта и използвани технологии.</Text>
-                <Button variant="subtle" mt="md" fullWidth color="blue">
-                  Виж повече
-                </Button>
-              </Card>
-            </Grid.Col>
-          ))}
-        </Grid>
+          <Group mt="md">
+            <Button variant="filled" color="indigo" radius="xl" size="md" rightSection={<IconArrowRight size={18} />}>
+              View Projects
+            </Button>
+            <Button variant="outline" color="blue" radius="xl" size="md">
+              Contact Me
+            </Button>
+          </Group>
+        </Stack>
       </motion.div>
-
-      {/* CONTACT */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.9 }}
-        style={{ marginTop: '5rem', textAlign: 'center' }}
-      >
-        <Title order={2}>Искаш да работим заедно?</Title>
-        <Text mt="sm">Свържи се с мен и нека създадем нещо страхотно!</Text>
-        <Button mt="md" size="lg" color="indigo" radius="xl">
-          Контакт
-        </Button>
-      </motion.div>
-    </Container></>
+    </Container>
   );
 }
