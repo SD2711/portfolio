@@ -9,7 +9,8 @@ type Project = {
 };
 
 type Props = {
-  project: Project;
+  project?: Project;
+  projects?: Project;
   activeIndex?: number;
   direction?: number;
 };
@@ -29,12 +30,17 @@ const slideVariants = {
   }),
 };
 
-export const ProjectCard = ({ project, activeIndex = 0, direction = 1 }: Props) => {
+export const ProjectCard = ({ project, projects, activeIndex = 0, direction = 1 }: Props) => {
   const [opened, setOpened] = useState(false);
 
-  const totalImages = project.images.length;
+  const resolvedProject = project ?? projects;
+  if (!resolvedProject) {
+    return null;
+  }
+
+  const totalImages = resolvedProject.images.length;
   const safeIndex = totalImages ? ((activeIndex % totalImages) + totalImages) % totalImages : 0;
-  const currentImage = project.images[safeIndex];
+  const currentImage = resolvedProject.images[safeIndex];
 
   return (
     <motion.div
@@ -70,7 +76,7 @@ export const ProjectCard = ({ project, activeIndex = 0, direction = 1 }: Props) 
                 <Image
                   src={currentImage}
                   height={200}
-                  alt={project.title}
+                  alt={resolvedProject.title}
                   style={{ cursor: 'pointer' }}
                   onClick={() => setOpened(true)}
                 />

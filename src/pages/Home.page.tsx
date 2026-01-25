@@ -43,18 +43,12 @@ export function HomePage() {
 
   const projects = [
     {
-      title: 'AirCalling Landing',
-      category: 'Web Design',
       images: [homePreview, desktopKids, finalizationFive],
     },
     {
-      title: 'Interior Studio',
-      category: 'UI/UX',
       images: [desktopOne, interiorDesign],
     },
     {
-      title: 'Coffee Landing',
-      category: 'Web Design',
       images: [beanSceneCoffee, dekstop],
     },
   ];
@@ -199,16 +193,15 @@ export function HomePage() {
                   A curated selection of recent landing pages and product concepts.
                 </Text>
               </Stack>
-            <Grid gutter="xl" mt="xl">
-              {filteredProjects.map((project) => (
-                <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={project.title}>
-                  <Stack gap="xs">
-                    <ProjectCard project={project} activeIndex={projectSlide} direction={slideDirection} />
-                    <Text fw={600}>{project.title}</Text>
-                  </Stack>
-                </Grid.Col>
-              ))}
-            </Grid>
+              <Grid gutter="xl" mt="xl">
+                {filteredProjects.map((project) => (
+                  <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
+                    <Stack gap="xs">
+                      <ProjectCard project={project} activeIndex={projectSlide} direction={slideDirection} />
+                    </Stack>
+                  </Grid.Col>
+                ))}
+              </Grid>
             </Container>
           </div>
         </section>
