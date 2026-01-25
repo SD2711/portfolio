@@ -11,14 +11,13 @@ import {
 } from '@mantine/core';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import classes from './Header.module.css'; // Примерен CSS модул
-import logo from './logo.svg'; // Примерен импорт на лого
+import logo from './stefani-dimitrova-logo-transparent.svg'; // Примерен импорт на лого
 
 const links = [
   { link: '#home', label: 'Home' },
   { link: '#about', label: 'About Me' },
   { link: '#services', label: 'Services' },
   { link: '#projects', label: 'Projects' },
-  { link: '#testimonials', label: 'Testimonials' },
   { link: '#contact', label: 'Contact' },
 ];
 
@@ -55,7 +54,9 @@ export function Header() {
   return (
     <header className={classes.header}>
       <Container size="ml" className={classes.inner}>
-        <img src={logo} alt="Логотип" height={70} />
+        <div className={classes.logoWrap}>
+          <img src={logo} alt="Логотип" className={classes.logo} />
+        </div>
         <Group gap={5} visibleFrom="xs">
           {items}
         </Group>
@@ -68,7 +69,16 @@ export function Header() {
           >
             {computedColorScheme === 'dark' ? <IconSun size={18} /> : <IconMoonStars size={18} />}
           </ActionIcon>
-          <Button component="a" href="#contact" variant="filled" color="orange" radius="xl" visibleFrom="sm">
+          <Button
+            component="a"
+            href="/myCV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="filled"
+            color="orange"
+            radius="xl"
+            visibleFrom="sm"
+          >
             Download CV
           </Button>
           <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />

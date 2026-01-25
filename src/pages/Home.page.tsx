@@ -37,10 +37,7 @@ import desktopKids from '../components/Desktop - kids.png';
 import homePreview from '../components/Home.png';
 import interiorDesign from '../components/Interior design.png';
 
-const categories = ['All', 'UI/UX', 'Web Design', 'App Design'];
-
 export function HomePage() {
-  const [activeCategory, setActiveCategory] = useState('All');
   const [projectSlide, setProjectSlide] = useState(0);
   const [slideDirection, setSlideDirection] = useState(1);
 
@@ -62,10 +59,7 @@ export function HomePage() {
     },
   ];
 
-  const filteredProjects =
-    activeCategory === 'All'
-      ? projects
-      : projects.filter((project) => project.category === activeCategory);
+  const filteredProjects = projects;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -141,23 +135,30 @@ export function HomePage() {
                 Clean design systems, fast delivery, and pixel-level care for your next product.
               </Text>
             </Stack>
-            <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing="lg" mt="xl">
+            <Grid gutter="lg" mt="xl" justify="center">
               {[
                 { title: 'UI/UX', icon: IconLayoutGrid },
                 { title: 'Web Design', icon: IconDeviceLaptop },
                 { title: 'App Design', icon: IconPalette },
               ].map((service) => (
-                <Card key={service.title} padding="lg" radius="md" withBorder>
-                  <service.icon size={28} color="var(--mantine-color-orange-6)" />
-                  <Text fw={600} mt="md">
-                    {service.title}
-                  </Text>
-                  <Text size="sm" c="dimmed" mt="xs">
-                    Focused on clarity, speed, and visual consistency.
-                  </Text>
-                </Card>
+                <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={service.title} style={{ display: 'flex' }}>
+                  <Card
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    style={{ width: '100%', maxWidth: 260, margin: '0 auto' }}
+                  >
+                    <Stack align="center" gap="xs">
+                      <service.icon size={28} color="var(--mantine-color-orange-6)" />
+                      <Text fw={600}>{service.title}</Text>
+                      <Text size="sm" c="dimmed" ta="center">
+                        Focused on clarity, speed, and visual consistency.
+                      </Text>
+                    </Stack>
+                  </Card>
+                </Grid.Col>
               ))}
-            </SimpleGrid>
+            </Grid>
           </Container>
         </section>
 
@@ -198,77 +199,18 @@ export function HomePage() {
                   A curated selection of recent landing pages and product concepts.
                 </Text>
               </Stack>
-              <Group justify="center" mt="lg">
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={activeCategory === category ? 'filled' : 'light'}
-                    color="orange"
-                    radius="xl"
-                    size="xs"
-                    onClick={() => setActiveCategory(category)}
-                  >
-                    {category}
-                  </Button>
-                ))}
-              </Group>
-              <Grid gutter="xl" mt="xl">
-                {filteredProjects.map((project) => (
-                  <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={project.title}>
-                    <Stack gap="xs">
-                      <ProjectCard project={project} activeIndex={projectSlide} direction={slideDirection} />
-                      <Text size="xs" fw={600} c="orange">
-                        {project.category}
-                      </Text>
-                      <Text fw={600}>{project.title}</Text>
-                    </Stack>
-                  </Grid.Col>
-                ))}
-              </Grid>
+            <Grid gutter="xl" mt="xl">
+              {filteredProjects.map((project) => (
+                <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={project.title}>
+                  <Stack gap="xs">
+                    <ProjectCard project={project} activeIndex={projectSlide} direction={slideDirection} />
+                    <Text fw={600}>{project.title}</Text>
+                  </Stack>
+                </Grid.Col>
+              ))}
+            </Grid>
             </Container>
           </div>
-        </section>
-
-        <section id="testimonials" style={{ background: 'var(--mantine-color-default-hover)' }}>
-          <Container size="lg" py="xl">
-            <Stack gap="xs" align="center">
-              <Title order={2}>Testimonials</Title>
-              <Text c="dimmed" ta="center" maw={520}>
-                Client feedback focused on clarity, reliability, and on-time delivery.
-              </Text>
-            </Stack>
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg" mt="xl">
-              {[
-                {
-                  name: 'Anna M.',
-                  role: 'Founder',
-                  text: 'Elegant layouts, clear communication, and a smooth handoff. Perfect for our launch.',
-                },
-                {
-                  name: 'Jason L.',
-                  role: 'Product Lead',
-                  text: 'The result felt premium and consistent across devices. Exactly what we needed.',
-                },
-              ].map((testimonial) => (
-                <Card key={testimonial.name} padding="lg" radius="md" withBorder>
-                  <Group>
-                    <Avatar color="orange" radius="xl">
-                      {testimonial.name.slice(0, 1)}
-                    </Avatar>
-                    <div>
-                      <Text fw={600}>{testimonial.name}</Text>
-                      <Text size="xs" c="dimmed">
-                        {testimonial.role}
-                      </Text>
-                    </div>
-                  </Group>
-                  <Text mt="md" c="dimmed">
-                    “{testimonial.text}”
-                  </Text>
-                </Card>
-              ))}
-            </SimpleGrid>
-          </Container>
         </section>
 
         <section id="contact">
