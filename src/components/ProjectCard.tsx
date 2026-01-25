@@ -1,22 +1,41 @@
 // components/ProjectCard.tsx
-import { Card, Image, Text, Badge, Button, Group, ActionIcon } from '@mantine/core';
-import { IconBrandGithub } from '@tabler/icons-react';
-import { motion } from 'framer-motion';
+import { Card, Image, Modal } from '@mantine/core';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 
 type Project = {
   title: string;
-  description: string;
-  image: string;
-  tags: string[];
-  demo: string;
-  github: string;
+  images: string[];
 };
 
 type Props = {
   project: Project;
+  activeIndex?: number;
+  direction?: number;
 };
 
-export const ProjectCard = ({ project }: Props) => {
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 40 : -40,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -40 : 40,
+    opacity: 0,
+  }),
+};
+
+export const ProjectCard = ({ project, activeIndex = 0, direction = 1 }: Props) => {
+  const [opened, setOpened] = useState(false);
+
+  const totalImages = project.images.length;
+  const safeIndex = totalImages ? ((activeIndex % totalImages) + totalImages) % totalImages : 0;
+  const currentImage = project.images[safeIndex];
+
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -25,28 +44,41 @@ export const ProjectCard = ({ project }: Props) => {
       transition={{ duration: 0.4 }}
       viewport={{ once: true }}
     >
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        centered
+        withCloseButton={false}
+        padding="md"
+        zIndex={2000}
+      >
+        <Image src={currentImage} alt="Project preview" radius="md" />
+      </Modal>
       <Card shadow="md" padding="lg" radius="md" withBorder>
         <Card.Section>
-          <Image src={project.image} height={160} alt={project.title} />
+          <div style={{ overflow: 'hidden', height: 200 }}>
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={currentImage}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.35 }}
+              >
+                <Image
+                  src={currentImage}
+                  height={200}
+                  alt={project.title}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setOpened(true)}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </Card.Section>
 
-        <Text fw={500} size="lg" mt="md">{project.title}</Text>
-        <Text size="sm" c="dimmed" mt="xs">{project.description}</Text>
-
-        <Group mt="md" gap="xs">
-          {project.tags.map((tag) => (
-            <Badge key={tag}>{tag}</Badge>
-          ))}
-        </Group>
-
-        <Group mt="md" justify="space-between">
-          <Button component="a" href={project.demo} target="_blank" variant="light" size="xs">
-            Live Demo
-          </Button>
-          <ActionIcon component="a" href={project.github} target="_blank" variant="default" size="sm">
-            <IconBrandGithub size={18} />
-          </ActionIcon>
-        </Group>
       </Card>
     </motion.div>
   );

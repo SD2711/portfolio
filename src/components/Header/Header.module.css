@@ -1,10 +1,11 @@
 .header {
-  background-color: white;
-  border-bottom: 1px solid #eaeaea;
+  background-color: color-mix(in srgb, var(--mantine-color-body) 88%, transparent);
+  border-bottom: 1px solid var(--mantine-color-default-border);
   padding: 0.5rem 0; /* по-малко пространство */
   position: sticky;
   top: 0;
   z-index: 1000;
+  backdrop-filter: blur(12px);
 }
 
 .inner {
@@ -16,7 +17,7 @@
 
 .link {
   text-decoration: none;
-  color: #1f2937;
+  color: var(--mantine-color-text);
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 6px;
@@ -24,6 +25,6 @@
 }
 
 .link[data-active] {
-  background-color: #edf2ff;
-  color: #1e3a8a;
+  background-color: var(--mantine-color-primary-light);
+  color: var(--mantine-color-primary-light-color);
 }

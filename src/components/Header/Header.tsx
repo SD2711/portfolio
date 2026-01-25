@@ -1,35 +1,56 @@
-import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import { Container, Group, Burger } from '@mantine/core';
+import {
+  ActionIcon,
+  Burger,
+  Button,
+  Container,
+  Group,
+  useComputedColorScheme,
+  useMantineColorScheme,
+} from '@mantine/core';
+import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import classes from './Header.module.css'; // Примерен CSS модул
 import logo from './logo.svg'; // Примерен импорт на лого
 
 const links = [
-  { link: '/', label: 'About me' },
-  { link: '/projects', label: 'Projects' },
-  { link: '/contact', label: 'Contact' },
+  { link: '#home', label: 'Home' },
+  { link: '#about', label: 'About Me' },
+  { link: '#services', label: 'Services' },
+  { link: '#projects', label: 'Projects' },
+  { link: '#testimonials', label: 'Testimonials' },
+  { link: '#contact', label: 'Contact' },
 ];
 
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
-  const location = useLocation();
-  const [active, setActive] = useState(location.pathname);
+  const [active, setActive] = useState('#home');
+  const { setColorScheme } = useMantineColorScheme();
+  const computedColorScheme = useComputedColorScheme('light');
 
   useEffect(() => {
-    setActive(location.pathname);
-  }, [location.pathname]);
+    const updateActive = () => {
+      setActive(window.location.hash || '#home');
+    };
+    updateActive();
+    window.addEventListener('hashchange', updateActive);
+    return () => window.removeEventListener('hashchange', updateActive);
+  }, []);
 
   const items = links.map((link) => (
-    <Link
+    <a
       key={link.label}
-      to={link.link}
+      href={link.link}
       className={classes.link}
       data-active={active === link.link || undefined}
+      onClick={() => setActive(link.link)}
     >
       {link.label}
-    </Link>
+    </a>
   ));
+
+  const toggleColorScheme = () =>
+    setColorScheme(computedColorScheme === 'dark' ? 'light' : 'dark');
 
   return (
     <header className={classes.header}>
@@ -38,7 +59,20 @@ export function Header() {
         <Group gap={5} visibleFrom="xs">
           {items}
         </Group>
-        <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
+        <Group gap="xs">
+          <ActionIcon
+            variant="light"
+            color="orange"
+            onClick={toggleColorScheme}
+            aria-label="Toggle color scheme"
+          >
+            {computedColorScheme === 'dark' ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+          </ActionIcon>
+          <Button component="a" href="#contact" variant="filled" color="orange" radius="xl" visibleFrom="sm">
+            Download CV
+          </Button>
+          <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
+        </Group>
       </Container>
     </header>
   );

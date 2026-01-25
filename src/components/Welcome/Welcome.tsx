@@ -1,83 +1,63 @@
-import { Container, Title, Text, Button, Group, Image, Stack } from '@mantine/core';
-import { IconArrowRight } from '@tabler/icons-react';
+import { ActionIcon, Container, Grid, Group, Image, Text, Title, Button } from '@mantine/core';
+import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin, IconBrandTwitter } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
-import { Typewriter } from 'react-simple-typewriter';
 import profile from './stefani.jpg'; // смени пътя ако е нужно
-import { Link } from 'react-router-dom';
 
 export default function Welcome() {
   return (
-    <Container
-      size="xl"
-      py="xl"
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          gap: '3rem',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-        }}
-      >
-        {/* LEFT: Profile image */}
-        <div style={{ flex: '1 1 300px', maxWidth: '400px' }}>
-          <Image
-            src={profile}
-            alt="Stefani profile"
-            radius="lg"
-            style={{
-              width: '100%',
-              height: 'auto',
-              objectFit: 'cover',
-              borderRadius: '1rem',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-            }}
-          />
-        </div>
-
-        {/* RIGHT: Typing text content */}
-        <Stack justify="md" style={{ flex: '1 1 400px', minWidth: '300px' }}>
-          <Title order={1} size="h1" style={{ color: '#1f2937' }}>
-            <Typewriter
-              words={["Hi, I'm Stefani", 'Web Designer & Front-End Developer']}
-              loop={true}
-              cursor
-              cursorStyle="|"
-              typeSpeed={70}
-              deleteSpeed={40}
-              delaySpeed={1500}
-            />
-          </Title>
-
-          <Text size="md" style={{ lineHeight: 1.7 }}>
-            I hold a degree in <strong>Software Engineering</strong> from <strong>Baltic State Technical University "VOENMEH"</strong> in Saint Petersburg.
-            My passion for technology is matched by my dedication to performance and discipline as a competitive <strong>Acrobatic Rock’n’Roll</strong> dancer.
-            In my downtime, I love to explore new ideas through reading and continuous learning.
-          </Text>
-
-          <Group mt="md">
-            <Link to='/projects' style={{ textDecoration: 'none' }}><Button variant="filled" color="indigo" radius="xl" size="md" rightSection={<IconArrowRight size={18} />}>
-              View Projects
+    <Container size="xl" py="xl">
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <Grid align="center" gutter="xl">
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Text size="sm" fw={600} c="dimmed">
+              Hi I am
+            </Text>
+            <Text size="lg" fw={600} c="orange">
+              Stefani Dimitrova
+            </Text>
+            <Title order={1} size="3rem" lh={1.1} mt="sm">
+              UI & UX
+              <br />
+              Designer
+            </Title>
+            <Text mt="md" c="dimmed" maw={440}>
+              I design modern, fast, and user-friendly websites that work beautifully on every device.
+            </Text>
+            <Button component="a" href="#contact" mt="lg" radius="xl" color="orange">
+              Hire Me
             </Button>
-            </Link>
-            <Link to='/contact' style={{ textDecoration: 'none' }}><Button variant="outline" color="blue" radius="xl" size="md">
-              Contact Me
-            </Button>
-            </Link>
-          </Group>
-        </Stack>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Image
+                src={profile}
+                alt="Stefani profile"
+                radius="50%"
+                style={{
+                  width: 320,
+                  height: 320,
+                  objectFit: 'cover',
+                  border: '6px solid var(--mantine-color-orange-6)',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
+                }}
+              />
+            </div>
+            <Group justify="center" mt="md">
+              <ActionIcon variant="subtle" color="orange" aria-label="Facebook">
+                <IconBrandFacebook size={18} />
+              </ActionIcon>
+              <ActionIcon variant="subtle" color="orange" aria-label="Twitter">
+                <IconBrandTwitter size={18} />
+              </ActionIcon>
+              <ActionIcon variant="subtle" color="orange" aria-label="Instagram">
+                <IconBrandInstagram size={18} />
+              </ActionIcon>
+              <ActionIcon variant="subtle" color="orange" aria-label="LinkedIn">
+                <IconBrandLinkedin size={18} />
+              </ActionIcon>
+            </Group>
+          </Grid.Col>
+        </Grid>
       </motion.div>
     </Container>
   );

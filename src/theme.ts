@@ -1,5 +1,11 @@
 import { createTheme } from '@mantine/core';
 
 export const theme = createTheme({
-  /** Put your mantine theme override here */
+  primaryColor: 'orange',
+  fontFamily: 'Space Grotesk, sans-serif',
+  headings: {
+    fontFamily: 'Outfit, Space Grotesk, sans-serif',
+    fontWeight: '600',
+  },
+  defaultRadius: 'md',
 });
