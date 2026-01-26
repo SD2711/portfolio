@@ -6,26 +6,22 @@ import {
   Button,
   Container,
   Group,
+  Menu,
+  Text,
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import classes from './Header.module.css'; // Примерен CSS модул
 import logo from './stefani-dimitrova-logo-transparent.svg'; // Примерен импорт на лого
-
-const links = [
-  { link: '#home', label: 'Home' },
-  { link: '#about', label: 'About Me' },
-  { link: '#services', label: 'Services' },
-  { link: '#projects', label: 'Projects' },
-  { link: '#contact', label: 'Contact' },
-];
+import { LANGUAGES, useLanguage } from '../../i18n';
 
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
   const [active, setActive] = useState('#home');
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('light');
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const updateActive = () => {
@@ -36,7 +32,7 @@ export function Header() {
     return () => window.removeEventListener('hashchange', updateActive);
   }, []);
 
-  const items = links.map((link) => (
+  const items = t.header.links.map((link) => (
     <a
       key={link.label}
       href={link.link}
@@ -50,6 +46,8 @@ export function Header() {
 
   const toggleColorScheme = () =>
     setColorScheme(computedColorScheme === 'dark' ? 'light' : 'dark');
+
+  const activeLanguage = LANGUAGES.find((lang) => lang.code === language) ?? LANGUAGES[0];
 
   return (
     <header className={classes.header}>
@@ -65,10 +63,26 @@ export function Header() {
             variant="light"
             color="orange"
             onClick={toggleColorScheme}
-            aria-label="Toggle color scheme"
+            aria-label={t.header.toggleTheme}
           >
             {computedColorScheme === 'dark' ? <IconSun size={18} /> : <IconMoonStars size={18} />}
           </ActionIcon>
+          <Menu width={190} position="bottom-end" zIndex={2000}>
+            <Menu.Target>
+              <Button variant="light" color="orange" radius="xl" size="sm" aria-label={t.header.language}>
+                <Text span className={classes.flag}>
+                  {activeLanguage.flag}
+                </Text>
+              </Button>
+            </Menu.Target>
+            <Menu.Dropdown>
+              {LANGUAGES.map((lang) => (
+                <Menu.Item key={lang.code} onClick={() => setLanguage(lang.code)}>
+                  <span className={classes.flag}>{lang.flag}</span> {lang.label}
+                </Menu.Item>
+              ))}
+            </Menu.Dropdown>
+          </Menu>
           <Button
             component="a"
             href="/myCV.pdf"
@@ -79,7 +93,7 @@ export function Header() {
             radius="xl"
             visibleFrom="sm"
           >
-            Download CV
+            {t.header.downloadCv}
           </Button>
           <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
         </Group>

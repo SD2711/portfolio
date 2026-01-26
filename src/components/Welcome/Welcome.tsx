@@ -1,30 +1,36 @@
 import { ActionIcon, Container, Grid, Group, Image, Text, Title, Button } from '@mantine/core';
-import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin, IconBrandTwitter } from '@tabler/icons-react';
+import { IconBrandInstagram, IconBrandLinkedin } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import profile from './stefani.jpg'; // смени пътя ако е нужно
+import { useLanguage } from '../../i18n';
 
 export default function Welcome() {
+  const { t } = useLanguage();
+
   return (
     <Container size="xl" py="xl">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
         <Grid align="center" gutter="xl">
           <Grid.Col span={{ base: 12, md: 6 }}>
             <Text size="sm" fw={600} c="dimmed">
-              Hi I am
+              {t.welcome.hi}
             </Text>
             <Text size="lg" fw={600} c="orange">
-              Stefani Dimitrova
+              {t.welcome.name}
             </Text>
             <Title order={1} size="3rem" lh={1.1} mt="sm">
-              UI & UX
-              <br />
-              Designer
+              {t.welcome.role.split('\n').map((line, index) => (
+                <span key={line}>
+                  {line}
+                  {index === 0 ? <br /> : null}
+                </span>
+              ))}
             </Title>
             <Text mt="md" c="dimmed" maw={440}>
-              I design modern, fast, and user-friendly websites that work beautifully on every device.
+              {t.welcome.intro}
             </Text>
             <Button component="a" href="#contact" mt="lg" radius="xl" color="orange">
-              Hire Me
+              {t.welcome.hire}
             </Button>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6 }}>
@@ -43,12 +49,6 @@ export default function Welcome() {
               />
             </div>
             <Group justify="center" mt="md">
-              <ActionIcon variant="subtle" color="orange" aria-label="Facebook">
-                <IconBrandFacebook size={18} />
-              </ActionIcon>
-              <ActionIcon variant="subtle" color="orange" aria-label="Twitter">
-                <IconBrandTwitter size={18} />
-              </ActionIcon>
               <ActionIcon variant="subtle" color="orange" aria-label="Instagram">
                 <IconBrandInstagram size={18} />
               </ActionIcon>

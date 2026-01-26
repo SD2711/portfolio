@@ -1,7 +1,10 @@
 import { Container, Group, Text, Anchor, ActionIcon } from '@mantine/core';
 import { IconBrandLinkedin, IconBrandGithub, IconMail } from '@tabler/icons-react';
+import { useLanguage } from '../i18n';
 
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer
       style={{
@@ -17,7 +20,7 @@ export function Footer() {
         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}
       >
         <Text size="sm" style={{ marginBottom: '0.5rem' }}>
-          © {new Date().getFullYear()} Stefani. All rights reserved.
+          © {new Date().getFullYear()} Stefani. {t.footer.rights}
         </Text>
 
         <Group justify="xs" style={{ marginLeft: 'auto' }}>

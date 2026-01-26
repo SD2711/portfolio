@@ -3,6 +3,7 @@ import '@mantine/core/styles.css';
 import { MantineProvider, localStorageColorSchemeManager } from '@mantine/core';
 import { Router } from './Router';
 import { theme } from './theme';
+import { LanguageProvider } from './i18n';
 
 const colorSchemeManager = localStorageColorSchemeManager({ key: 'color-scheme' });
 
@@ -13,7 +14,9 @@ export default function App() {
       colorSchemeManager={colorSchemeManager}
       defaultColorScheme="light"
     >
-      <Router />
+      <LanguageProvider>
+        <Router />
+      </LanguageProvider>
     </MantineProvider>
   );
 }

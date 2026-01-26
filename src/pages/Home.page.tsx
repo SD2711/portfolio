@@ -4,7 +4,6 @@ import { Footer } from '@/components/Footer';
 import { ProjectCard } from '@/components/ProjectCard';
 import {
   Anchor,
-  Avatar,
   ActionIcon,
   Button,
   Card,
@@ -12,7 +11,6 @@ import {
   Grid,
   Group,
   Progress,
-  SimpleGrid,
   Stack,
   Text,
   TextInput,
@@ -28,7 +26,7 @@ import {
   IconChevronRight,
 } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
-import aboutPhoto from '../components/Welcome/stefani.jpg';
+import aboutPhoto from '../components/stefani1.png';
 import finalizationFive from '../components/Финализация 5.png';
 import beanSceneCoffee from '../components/bean_scene_coffee_landingpage.png';
 import dekstop from '../components/Dekstop.png';
@@ -36,8 +34,10 @@ import desktopOne from '../components/Desktop - 1.png';
 import desktopKids from '../components/Desktop - kids.png';
 import homePreview from '../components/Home.png';
 import interiorDesign from '../components/Interior design.png';
+import { useLanguage } from '../i18n';
 
 export function HomePage() {
+  const { t } = useLanguage();
   const [projectSlide, setProjectSlide] = useState(0);
   const [slideDirection, setSlideDirection] = useState(1);
 
@@ -80,10 +80,10 @@ export function HomePage() {
                     src={aboutPhoto}
                     alt="About me"
                     style={{
-                      width: 260,
-                      height: 260,
-                      borderRadius: '50%',
-                      objectFit: 'cover',
+                      width: 220,
+                      height: 300,
+                      borderRadius: '0%',
+                      objectFit: 'fill',
                       border: '6px solid var(--mantine-color-orange-6)',
                       boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
                     }}
@@ -91,30 +91,19 @@ export function HomePage() {
                 </div>
               </Grid.Col>
               <Grid.Col span={{ base: 12, md: 7 }}>
-                <Title order={2}>About Me</Title>
+                <Title order={2}>{t.about.title}</Title>
                 <Text c="dimmed" mt="sm">
-                  I craft interfaces that feel light, clear, and purposeful. From concept to delivery, I focus on
-                  usability, speed, and a polished visual finish.
+                  {t.about.text}
                 </Text>
                 <Stack mt="lg" gap="sm">
-                  <div>
-                    <Text size="sm" fw={600} mb={6}>
-                      UX
-                    </Text>
-                    <Progress value={85} color="orange" radius="xl" />
-                  </div>
-                  <div>
-                    <Text size="sm" fw={600} mb={6}>
-                      Website Design
-                    </Text>
-                    <Progress value={90} color="orange" radius="xl" />
-                  </div>
-                  <div>
-                    <Text size="sm" fw={600} mb={6}>
-                      App Design
-                    </Text>
-                    <Progress value={80} color="orange" radius="xl" />
-                  </div>
+                  {t.about.skills.map((skill) => (
+                    <div key={skill.label}>
+                      <Text size="sm" fw={600} mb={6}>
+                        {skill.label}
+                      </Text>
+                      <Progress value={skill.value} color="orange" radius="xl" />
+                    </div>
+                  ))}
                 </Stack>
               </Grid.Col>
             </Grid>
@@ -124,17 +113,16 @@ export function HomePage() {
         <section id="services" style={{ background: 'var(--mantine-color-default-hover)' }}>
           <Container size="lg" py="xl">
             <Stack gap="xs" align="center">
-              <Title order={2}>Services</Title>
+              <Title order={2}>{t.services.title}</Title>
               <Text c="dimmed" ta="center" maw={520}>
-                Clean design systems, fast delivery, and pixel-level care for your next product.
+                {t.services.subtitle}
               </Text>
             </Stack>
             <Grid gutter="lg" mt="xl" justify="center">
-              {[
-                { title: 'UI/UX', icon: IconLayoutGrid },
-                { title: 'Web Design', icon: IconDeviceLaptop },
-                { title: 'App Design', icon: IconPalette },
-              ].map((service) => (
+              {t.services.cards.map((service, index) => {
+                const icons = [IconLayoutGrid, IconDeviceLaptop, IconPalette];
+                const ServiceIcon = icons[index] ?? IconLayoutGrid;
+                return (
                 <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={service.title} style={{ display: 'flex' }}>
                   <Card
                     padding="lg"
@@ -143,15 +131,16 @@ export function HomePage() {
                     style={{ width: '100%', maxWidth: 260, margin: '0 auto' }}
                   >
                     <Stack align="center" gap="xs">
-                      <service.icon size={28} color="var(--mantine-color-orange-6)" />
+                      <ServiceIcon size={28} color="var(--mantine-color-orange-6)" />
                       <Text fw={600}>{service.title}</Text>
                       <Text size="sm" c="dimmed" ta="center">
-                        Focused on clarity, speed, and visual consistency.
+                        {service.description}
                       </Text>
                     </Stack>
                   </Card>
                 </Grid.Col>
-              ))}
+              );
+              })}
             </Grid>
           </Container>
         </section>
@@ -188,9 +177,9 @@ export function HomePage() {
             </ActionIcon>
             <Container size="lg" py="xl">
               <Stack gap="xs" align="center">
-                <Title order={2}>My Projects</Title>
+                <Title order={2}>{t.projects.title}</Title>
                 <Text c="dimmed" ta="center" maw={520}>
-                  A curated selection of recent landing pages and product concepts.
+                  {t.projects.subtitle}
                 </Text>
               </Stack>
               <Grid gutter="xl" mt="xl">
@@ -209,21 +198,21 @@ export function HomePage() {
         <section id="contact">
           <Container size="sm" py="xl">
             <Stack justify="xl" align="center">
-              <Title order={2}>Lets Design Together</Title>
+              <Title order={2}>{t.contact.title}</Title>
               <Text ta="center" c="dimmed">
-                Tell me about your project and I will respond with a clear plan and timeline.
+                {t.contact.text}
               </Text>
               <Group w="100%" gap="sm" align="center">
-                <TextInput placeholder="Enter your email" style={{ flex: 1 }} radius="xl" />
+                <TextInput placeholder={t.contact.emailPlaceholder} style={{ flex: 1 }} radius="xl" />
                 <Button color="orange" radius="xl">
-                  Contact Me
+                  {t.contact.contactCta}
                 </Button>
               </Group>
 
               <Group justify="center" mt="md">
                 <Anchor href="mailto:itsstephanied78@gmail.com" target="_blank" rel="noopener noreferrer" underline="never">
                   <Button variant="outline" color="orange" size="md" leftSection={<IconMail size={20} />}>
-                    Email
+                    {t.contact.emailButton}
                   </Button>
                 </Anchor>
                 <Anchor
@@ -233,7 +222,7 @@ export function HomePage() {
                   underline="never"
                 >
                   <Button variant="outline" color="orange" size="md" leftSection={<IconBrandLinkedin size={20} />}>
-                    LinkedIn
+                    {t.contact.linkedinButton}
                   </Button>
                 </Anchor>
               </Group>

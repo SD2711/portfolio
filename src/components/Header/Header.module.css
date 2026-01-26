@@ -47,3 +47,13 @@
   background-color: var(--mantine-color-primary-light);
   color: var(--mantine-color-primary-light-color);
 }
+
+.flag {
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+}
