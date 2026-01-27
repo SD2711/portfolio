@@ -5,6 +5,7 @@ import { ProjectCard } from '@/components/ProjectCard';
 import {
   Anchor,
   ActionIcon,
+  Alert,
   Button,
   Card,
   Container,
@@ -14,6 +15,7 @@ import {
   Stack,
   Text,
   TextInput,
+  Textarea,
   Title,
 } from '@mantine/core';
 import {
@@ -40,6 +42,8 @@ export function HomePage() {
   const { t } = useLanguage();
   const [projectSlide, setProjectSlide] = useState(0);
   const [slideDirection, setSlideDirection] = useState(1);
+  const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const projects = [
     {
@@ -62,6 +66,41 @@ export function HomePage() {
     }, 4500);
     return () => clearInterval(interval);
   }, []);
+
+  const budgetOptions = t.contact.budgetOptions.map((option) => ({ value: option, label: option }));
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitState('sending');
+    setSubmitMessage('');
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        setSubmitState('success');
+        setSubmitMessage(t.contact.successMessage);
+        form.reset();
+        return;
+      }
+
+      const data = await response.json().catch(() => null);
+      setSubmitState('error');
+      setSubmitMessage(data?.message || t.contact.errorMessage);
+    } catch (error) {
+      setSubmitState('error');
+      setSubmitMessage(t.contact.errorMessage);
+    }
+  };
 
   return (
     <>
@@ -95,6 +134,9 @@ export function HomePage() {
                 <Text c="dimmed" mt="sm">
                   {t.about.text}
                 </Text>
+                <Text c="dimmed" mt="sm">
+                  {t.about.techText}
+                </Text>
                 <Stack mt="lg" gap="sm">
                   {t.about.skills.map((skill) => (
                     <div key={skill.label}>
@@ -116,6 +158,9 @@ export function HomePage() {
               <Title order={2}>{t.services.title}</Title>
               <Text c="dimmed" ta="center" maw={520}>
                 {t.services.subtitle}
+              </Text>
+              <Text c="dimmed" ta="center" maw={520}>
+                {t.services.techText}
               </Text>
             </Stack>
             <Grid gutter="lg" mt="xl" justify="center">
@@ -202,12 +247,81 @@ export function HomePage() {
               <Text ta="center" c="dimmed">
                 {t.contact.text}
               </Text>
-              <Group w="100%" gap="sm" align="center">
-                <TextInput placeholder={t.contact.emailPlaceholder} style={{ flex: 1 }} radius="xl" />
-                <Button color="orange" radius="xl">
-                  {t.contact.contactCta}
-                </Button>
-              </Group>
+              <form
+                style={{ width: '100%' }}
+                action="https://api.web3forms.com/submit"
+                method="POST"
+                onSubmit={handleSubmit}
+              >
+                <input type="hidden" name="access_key" value="3ea08c46-3203-451e-918e-df27622af309" />
+                <input type="hidden" name="subject" value="New message from portfolio site" />
+                <input type="checkbox" name="botcheck" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" />
+                <Stack gap="sm">
+                  <TextInput
+                    name="name"
+                    placeholder={t.contact.namePlaceholder}
+                    radius="xl"
+                    required
+                    disabled={submitState === 'sending'}
+                  />
+                  <TextInput
+                    type="email"
+                    name="email"
+                    placeholder={t.contact.emailPlaceholder}
+                    radius="xl"
+                    required
+                    disabled={submitState === 'sending'}
+                  />
+                  <TextInput
+                    type="tel"
+                    name="phone"
+                    placeholder={t.contact.phonePlaceholder}
+                    radius="xl"
+                    disabled={submitState === 'sending'}
+                  />
+                  <TextInput
+                    name="budget"
+                    placeholder={t.contact.budgetPlaceholder}
+                    radius="xl"
+                    disabled={submitState === 'sending'}
+                    list="budget-options"
+                    required
+                  />
+                  <datalist id="budget-options">
+                    {budgetOptions.map((option) => (
+                      <option key={option.value} value={option.value} />
+                    ))}
+                  </datalist>
+                  <TextInput
+                    name="timeline"
+                    placeholder={t.contact.timelinePlaceholder}
+                    radius="xl"
+                    disabled={submitState === 'sending'}
+                    required
+                  />
+                  <Textarea
+                    name="message"
+                    placeholder={t.contact.messagePlaceholder}
+                    radius="md"
+                    minRows={4}
+                    required
+                    disabled={submitState === 'sending'}
+                  />
+                  {submitState === 'success' && (
+                    <Alert color="green" radius="md" title={t.contact.successTitle}>
+                      {submitMessage}
+                    </Alert>
+                  )}
+                  {submitState === 'error' && (
+                    <Alert color="red" radius="md" title={t.contact.errorTitle}>
+                      {submitMessage}
+                    </Alert>
+                  )}
+                  <Button color="orange" radius="xl" type="submit" loading={submitState === 'sending'}>
+                    {t.contact.contactCta}
+                  </Button>
+                </Stack>
+              </form>
 
               <Group justify="center" mt="md">
                 <Anchor href="mailto:itsstephanied78@gmail.com" target="_blank" rel="noopener noreferrer" underline="never">

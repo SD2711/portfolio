@@ -34,6 +34,7 @@ const translations = {
       title: 'About Me',
       text:
         'I craft interfaces that feel light, clear, and purposeful. From concept to delivery, I focus on usability, speed, and a polished visual finish.',
+      techText: 'I work with HTML5, CSS, JavaScript, TypeScript, React, and Vue.',
       skills: [
         { label: 'Website Design', value: 85 },
         { label: 'Website Development', value: 90 },
@@ -43,6 +44,7 @@ const translations = {
     services: {
       title: 'Services',
       subtitle: 'Clean design systems, fast delivery, and pixel-level care for your next product.',
+      techText: 'Tech stack: HTML5, CSS, JavaScript, TypeScript, React, Vue.',
       cards: [
         {
           title: 'Website Design',
@@ -65,8 +67,18 @@ const translations = {
     contact: {
       title: "Let's Design Together",
       text: 'Tell me about your project and I will respond with a clear plan and timeline.',
+      namePlaceholder: 'Your name',
       emailPlaceholder: 'Enter your email',
+      phonePlaceholder: 'Phone',
+      budgetPlaceholder: 'Budget',
+      timelinePlaceholder: 'Timeline',
+      messagePlaceholder: 'Tell me about your project',
       contactCta: 'Contact Me',
+      successTitle: 'Message sent',
+      successMessage: "Thanks for reaching out! I'll get back to you shortly.",
+      errorTitle: 'Something went wrong',
+      errorMessage: 'Please try again in a moment or email me directly.',
+      budgetOptions: ['Under €1,000', '€1,000–€3,000', '€3,000–€7,000', '€7,000+'],
       emailButton: 'Email',
       linkedinButton: 'LinkedIn',
     },
@@ -98,6 +110,7 @@ const translations = {
       title: 'За мен',
       text:
         'Създавам интерфейси, които са леки, ясни и целенасочени. От концепция до реализация се фокусирам върху използваемост, скорост и изискан визуален финал.',
+      techText: 'Работя с HTML5, CSS, JavaScript, TypeScript, React и Vue.',
       skills: [
         { label: 'Уеб дизайн', value: 85 },
         { label: 'Уеб разработка', value: 90 },
@@ -107,6 +120,7 @@ const translations = {
     services: {
       title: 'Услуги',
       subtitle: 'Чисти дизайн системи, бърза доставка и пикселна прецизност за следващия ви продукт.',
+      techText: 'Технологии: HTML5, CSS, JavaScript, TypeScript, React, Vue.',
       cards: [
         {
           title: 'Уеб дизайн',
@@ -129,8 +143,18 @@ const translations = {
     contact: {
       title: 'Нека създадем дизайн заедно',
       text: 'Разкажете ми за проекта си и ще отговоря с ясен план и срокове.',
+      namePlaceholder: 'Вашето име',
       emailPlaceholder: 'Въведете имейл',
+      phonePlaceholder: 'Телефон',
+      budgetPlaceholder: 'Бюджет',
+      timelinePlaceholder: 'Срок',
+      messagePlaceholder: 'Разкажете ми за проекта',
       contactCta: 'Свържи се с мен',
+      successTitle: 'Съобщението е изпратено',
+      successMessage: 'Благодаря! Ще се свържа с вас възможно най-скоро.',
+      errorTitle: 'Възникна грешка',
+      errorMessage: 'Опитайте отново след малко или ми пишете директно.',
+      budgetOptions: ['До 1 000 €', '1 000–3 000 €', '3 000–7 000 €', 'Над 7 000 €'],
       emailButton: 'Имейл',
       linkedinButton: 'LinkedIn',
     },
@@ -162,6 +186,7 @@ const translations = {
       title: 'Обо мне',
       text:
         'Я создаю интерфейсы, которые выглядят легко, ясно и целенаправленно. От концепции до запуска фокусируюсь на удобстве, скорости и аккуратном визуальном результате.',
+      techText: 'Работаю с HTML5, CSS, JavaScript, TypeScript, React и Vue.',
       skills: [
         { label: 'Веб-дизайн', value: 85 },
         { label: 'Веб-разработка', value: 90 },
@@ -171,6 +196,7 @@ const translations = {
     services: {
       title: 'Услуги',
       subtitle: 'Чистые дизайн-системы, быстрая доставка и пиксельная точность для вашего продукта.',
+      techText: 'Технологии: HTML5, CSS, JavaScript, TypeScript, React, Vue.',
       cards: [
         {
           title: 'Веб-дизайн',
@@ -193,8 +219,18 @@ const translations = {
     contact: {
       title: 'Давайте создавать дизайн вместе',
       text: 'Расскажите о проекте, и я отвечу с ясным планом и сроками.',
+      namePlaceholder: 'Ваше имя',
       emailPlaceholder: 'Введите email',
+      phonePlaceholder: 'Телефон',
+      budgetPlaceholder: 'Бюджет',
+      timelinePlaceholder: 'Сроки',
+      messagePlaceholder: 'Расскажите о проекте',
       contactCta: 'Связаться со мной',
+      successTitle: 'Сообщение отправлено',
+      successMessage: 'Спасибо! Я свяжусь с вами в ближайшее время.',
+      errorTitle: 'Произошла ошибка',
+      errorMessage: 'Пожалуйста, попробуйте позже или напишите мне напрямую.',
+      budgetOptions: ['До 1 000 €', '1 000–3 000 €', '3 000–7 000 €', 'Более 7 000 €'],
       emailButton: 'Email',
       linkedinButton: 'LinkedIn',
     },
