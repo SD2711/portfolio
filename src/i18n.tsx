@@ -5,8 +5,8 @@ export type Language = 'en' | 'bg' | 'ru';
 
 export const LANGUAGES: { code: Language; label: string; flag: string }[] = [
   { code: 'en', label: 'English', flag: '🇺🇸' },
-  { code: 'bg', label: 'Български', flag: '🇧🇬' },
   { code: 'ru', label: 'Русский', flag: '🇷🇺' },
+  { code: 'bg', label: 'Български', flag: '🇧🇬' },
 ];
 
 const translations = {
