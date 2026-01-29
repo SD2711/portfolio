@@ -8,7 +8,7 @@ export default function Welcome() {
   const { t } = useLanguage();
 
   return (
-    <Container size="xl" py="xl">
+    <Container size="lg" py="xl">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
         <Grid align="center" gutter="xl">
           <Grid.Col span={{ base: 12, md: 6 }}>

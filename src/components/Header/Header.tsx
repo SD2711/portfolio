@@ -51,7 +51,7 @@ export function Header() {
 
   return (
     <header className={classes.header}>
-      <Container size="ml" className={classes.inner}>
+      <Container size="lg" className={classes.inner}>
         <div className={classes.logoWrap}>
           <img src={logo} alt="Логотип" className={classes.logo} />
         </div>

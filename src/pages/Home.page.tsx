@@ -28,7 +28,7 @@ import {
   IconChevronRight,
 } from '@tabler/icons-react';
 import { useState } from 'react';
-import aboutPhoto from '../components/stefani1.png';
+import { useMediaQuery } from '@mantine/hooks';
 import finalizationFive from '../components/Финализация 5.png';
 import beanSceneCoffee from '../components/bean_scene_coffee_landingpage.png';
 import dekstop from '../components/Dekstop.png';
@@ -41,9 +41,11 @@ import { useLanguage } from '../i18n';
 export function HomePage() {
   const { t } = useLanguage();
   const [projectSlide, setProjectSlide] = useState(0);
+  const [projectCardIndex, setProjectCardIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState(1);
   const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
+  const isMobile = useMediaQuery('(max-width: 48em)');
 
   const projects = [
     {
@@ -58,6 +60,10 @@ export function HomePage() {
   ];
 
   const filteredProjects = projects;
+  const projectCount = filteredProjects.length;
+  const safeProjectCardIndex = projectCount
+    ? ((projectCardIndex % projectCount) + projectCount) % projectCount
+    : 0;
 
   const budgetOptions = t.contact.budgetOptions.map((option) => ({ value: option, label: option }));
 
@@ -104,43 +110,25 @@ export function HomePage() {
 
         <section id="about">
           <Container size="lg" py="xl">
-            <Grid align="center" gutter="xl">
-              <Grid.Col span={{ base: 12, md: 5 }}>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <img
-                    src={aboutPhoto}
-                    alt="About me"
-                    style={{
-                      width: 220,
-                      height: 300,
-                      borderRadius: '0%',
-                      objectFit: 'fill',
-                      border: '6px solid var(--mantine-color-orange-6)',
-                      boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
-                    }}
-                  />
-                </div>
-              </Grid.Col>
-              <Grid.Col span={{ base: 12, md: 7 }}>
-                <Title order={2}>{t.about.title}</Title>
-                <Text c="dimmed" mt="sm">
-                  {t.about.text}
-                </Text>
-                <Text c="dimmed" mt="sm">
-                  {t.about.techText}
-                </Text>
-                <Stack mt="lg" gap="sm">
-                  {t.about.skills.map((skill) => (
-                    <div key={skill.label}>
-                      <Text size="sm" fw={600} mb={6}>
-                        {skill.label}
-                      </Text>
-                      <Progress value={skill.value} color="orange" radius="xl" />
-                    </div>
-                  ))}
-                </Stack>
-              </Grid.Col>
-            </Grid>
+            <Stack align="flex-start">
+              <Title order={2}>{t.about.title}</Title>
+              <Text c="dimmed" mt="sm">
+                {t.about.text}
+              </Text>
+              <Text c="dimmed" mt="sm">
+                {t.about.techText}
+              </Text>
+              <Stack mt="lg" gap="sm" style={{ width: '100%' }}>
+                {t.about.skills.map((skill) => (
+                  <div key={skill.label}>
+                    <Text size="sm" fw={600} mb={6}>
+                      {skill.label}
+                    </Text>
+                    <Progress value={skill.value} color="orange" radius="xl" />
+                  </div>
+                ))}
+              </Stack>
+            </Stack>
           </Container>
         </section>
 
@@ -183,18 +171,22 @@ export function HomePage() {
         </section>
 
         <section id="projects">
-          <div style={{ position: 'relative' }}>
+          <Container size="lg" py="xl" style={{ position: 'relative' }}>
             <ActionIcon
               variant="filled"
               color="orange"
               size="lg"
               radius="xl"
               onClick={() => {
-                setSlideDirection(-1);
-                setProjectSlide((value) => value - 1);
+                if (isMobile) {
+                  setProjectCardIndex((value) => value - 1);
+                } else {
+                  setSlideDirection(-1);
+                  setProjectSlide((value) => value - 1);
+                }
               }}
               aria-label="Previous project images"
-              style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', zIndex: 2 }}
+              style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 2 }}
             >
               <IconChevronLeft size={20} />
             </ActionIcon>
@@ -204,36 +196,58 @@ export function HomePage() {
               size="lg"
               radius="xl"
               onClick={() => {
-                setSlideDirection(1);
-                setProjectSlide((value) => value + 1);
+                if (isMobile) {
+                  setProjectCardIndex((value) => value + 1);
+                } else {
+                  setSlideDirection(1);
+                  setProjectSlide((value) => value + 1);
+                }
               }}
               aria-label="Next project images"
-              style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)', zIndex: 2 }}
+              style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 2 }}
             >
               <IconChevronRight size={20} />
             </ActionIcon>
-            <Container size="lg" py="xl">
-              <Stack gap="xs" align="center">
-                <Title order={2}>{t.projects.title}</Title>
-                <Text c="dimmed" ta="center" maw={520}>
-                  {t.projects.subtitle}
-                </Text>
-              </Stack>
-              <Grid gutter="xl" mt="xl">
-                {filteredProjects.map((project) => (
-                  <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
-                    <Stack gap="xs">
-                      <ProjectCard project={project} activeIndex={projectSlide} direction={slideDirection} />
-                    </Stack>
-                  </Grid.Col>
-                ))}
-              </Grid>
-            </Container>
-          </div>
+            <Stack gap="xs" align="center">
+              <Title order={2}>{t.projects.title}</Title>
+              <Text c="dimmed" ta="center" maw={520}>
+                {t.projects.subtitle}
+              </Text>
+            </Stack>
+              {isMobile ? (
+                <Stack gap="md" mt="xl">
+                  <div style={{ overflow: 'hidden', width: '100%' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        transition: 'transform 320ms ease',
+                        transform: `translateX(-${safeProjectCardIndex * 100}%)`,
+                      }}
+                    >
+                      {filteredProjects.map((project, index) => (
+                        <div key={`project-${index}`} style={{ flex: '0 0 100%', padding: '0 0.5rem' }}>
+                          <ProjectCard project={project} activeIndex={projectSlide} direction={slideDirection} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </Stack>
+              ) : (
+                <Grid gutter="xl" mt="xl">
+                  {filteredProjects.map((project, index) => (
+                    <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={`project-grid-${index}`}>
+                      <Stack gap="xs">
+                        <ProjectCard project={project} activeIndex={projectSlide} direction={slideDirection} />
+                      </Stack>
+                    </Grid.Col>
+                  ))}
+                </Grid>
+              )}
+          </Container>
         </section>
 
         <section id="contact">
-          <Container size="sm" py="xl">
+          <Container size="lg" py="xl">
             <Stack justify="xl" align="center">
               <Title order={2}>{t.contact.title}</Title>
               <Text ta="center" c="dimmed">
