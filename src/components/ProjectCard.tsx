@@ -44,13 +44,7 @@ export const ProjectCard = ({ project, projects, activeIndex = 0, direction = 1 
   const imageAlt = resolvedProject.title ?? 'Project preview';
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.02 }}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      viewport={{ once: true }}
-    >
+    <div>
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
@@ -87,6 +81,6 @@ export const ProjectCard = ({ project, projects, activeIndex = 0, direction = 1 
         </Card.Section>
 
       </Card>
-    </motion.div>
+    </div>
   );
 };

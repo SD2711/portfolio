@@ -27,7 +27,7 @@ import {
   IconChevronLeft,
   IconChevronRight,
 } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import aboutPhoto from '../components/stefani1.png';
 import finalizationFive from '../components/Финализация 5.png';
 import beanSceneCoffee from '../components/bean_scene_coffee_landingpage.png';
@@ -58,14 +58,6 @@ export function HomePage() {
   ];
 
   const filteredProjects = projects;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSlideDirection(1);
-      setProjectSlide((value) => value + 1);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, []);
 
   const budgetOptions = t.contact.budgetOptions.map((option) => ({ value: option, label: option }));
 
