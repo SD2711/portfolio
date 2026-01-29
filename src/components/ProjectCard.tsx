@@ -32,6 +32,7 @@ const slideVariants = {
 
 export const ProjectCard = ({ project, projects, activeIndex = 0, direction = 1 }: Props) => {
   const [opened, setOpened] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const resolvedProject = project ?? projects;
   if (!resolvedProject) {
@@ -44,7 +45,16 @@ export const ProjectCard = ({ project, projects, activeIndex = 0, direction = 1 
   const imageAlt = resolvedProject.title ?? 'Project preview';
 
   return (
-    <div>
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
+        boxShadow: isHovered ? '0 16px 32px rgba(0,0,0,0.14)' : '0 8px 20px rgba(0,0,0,0.08)',
+        transition: 'transform 200ms ease, box-shadow 200ms ease',
+        borderRadius: 12,
+      }}
+    >
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
