@@ -48,15 +48,18 @@ const translations = {
       cards: [
         {
           title: 'Website Design',
-          description: 'Strategic website design focused on clarity, brand consistency, and usability.',
+          description:
+            'Strategic website design focused on clarity, brand consistency, and usability. From wireframes to polished UI, I shape layouts that convert and feel effortless to navigate.',
         },
         {
           title: 'Web Development',
-          description: 'Reliable and efficient web solutions aligned with business goals and scalability.',
+          description:
+            'Reliable and efficient web solutions aligned with business goals and scalability. I build responsive, accessible pages with clean code and performance in mind.',
         },
         {
           title: 'App Design',
-          description: 'Functional and intuitive app design with a strong focus on user experience.',
+          description:
+            'Functional and intuitive app design with a strong focus on user experience. I map user flows, refine interactions, and deliver interfaces that feel natural.',
         },
       ],
     },
@@ -124,15 +127,18 @@ const translations = {
       cards: [
         {
           title: 'Уеб дизайн',
-          description: 'Стратегически уеб дизайн с фокус върху яснота, консистентност на бранда и използваемост.',
+          description:
+            'Стратегически уеб дизайн с фокус върху яснота, консистентност на бранда и използваемост. От уайърфрейми до завършен UI, създавам структури, които конвертират.',
         },
         {
           title: 'Уеб разработка',
-          description: 'Надеждни и ефективни уеб решения, съобразени с бизнес целите и мащабируемостта.',
+          description:
+            'Надеждни и ефективни уеб решения, съобразени с бизнес целите и мащабируемостта. Изграждам responsive и достъпни страници с чист код и бързо зареждане.',
         },
         {
           title: 'Дизайн на приложения',
-          description: 'Функционален и интуитивен дизайн с силен фокус върху потребителското преживяване.',
+          description:
+            'Функционален и интуитивен дизайн с силен фокус върху потребителското преживяване. Анализирам потребителските пътеки и изпипвам детайлите на интерфейса.',
         },
       ],
     },
@@ -200,15 +206,18 @@ const translations = {
       cards: [
         {
           title: 'Веб-дизайн',
-          description: 'Стратегический веб-дизайн с фокусом на ясность, целостность бренда и удобство.',
+          description:
+            'Стратегический веб-дизайн с фокусом на ясность, целостность бренда и удобство. От вайрфреймов до финального UI я создаю структуры, которые конвертируют.',
         },
         {
           title: 'Веб-разработка',
-          description: 'Надежные и эффективные веб-решения, соответствующие бизнес-целям и масштабу.',
+          description:
+            'Надежные и эффективные веб-решения, соответствующие бизнес-целям и масштабу. Делаю адаптивные и доступные страницы с чистым кодом и высокой скоростью.',
         },
         {
           title: 'Дизайн приложений',
-          description: 'Функциональный и интуитивный дизайн с акцентом на пользовательский опыт.',
+          description:
+            'Функциональный и интуитивный дизайн с акцентом на пользовательский опыт. Прорабатываю пользовательские сценарии и довожу интерфейс до финального блеска.',
         },
       ],
     },

@@ -143,27 +143,33 @@ export function HomePage() {
                 {t.services.techText}
               </Text>
             </Stack>
-            <Grid gutter="lg" mt="xl" justify="center">
+            <Grid gutter="md" mt="xl" justify="center" align="stretch">
               {t.services.cards.map((service, index) => {
                 const icons = [IconLayoutGrid, IconDeviceLaptop, IconPalette];
                 const ServiceIcon = icons[index] ?? IconLayoutGrid;
                 return (
-                <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={service.title} style={{ display: 'flex' }}>
-                  <Card
-                    padding="lg"
-                    radius="md"
-                    withBorder
-                    style={{ width: '100%', maxWidth: 260, margin: '0 auto' }}
-                  >
-                    <Stack align="center" gap="xs">
-                      <ServiceIcon size={28} color="var(--mantine-color-orange-6)" />
-                      <Text fw={600}>{service.title}</Text>
-                      <Text size="sm" c="dimmed" ta="center">
-                        {service.description}
-                      </Text>
-                    </Stack>
-                  </Card>
-                </Grid.Col>
+                  <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={service.title} style={{ display: 'flex' }}>
+                    <Card
+                      padding="xl"
+                      radius="md"
+                      withBorder
+                      style={{
+                        width: '100%',
+                        maxWidth: 320,
+                        margin: '0 auto',
+                        display: 'flex',
+                        height: '100%',
+                      }}
+                    >
+                      <Stack align="center" gap="xs" style={{ width: '100%', flex: 1, justifyContent: 'center' }}>
+                        <ServiceIcon size={30} color="var(--mantine-color-orange-6)" />
+                        <Text fw={600}>{service.title}</Text>
+                        <Text size="sm" c="dimmed" ta="center">
+                          {service.description}
+                        </Text>
+                      </Stack>
+                    </Card>
+                  </Grid.Col>
               );
               })}
             </Grid>
