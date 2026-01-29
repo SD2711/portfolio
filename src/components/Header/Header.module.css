@@ -40,12 +40,17 @@
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 6px;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .link[data-active] {
   background-color: var(--mantine-color-primary-light);
   color: var(--mantine-color-primary-light-color);
+}
+
+.link:hover {
+  background-color: var(--mantine-color-default-hover);
+  transform: translateY(-1px);
 }
 
 .flag {
