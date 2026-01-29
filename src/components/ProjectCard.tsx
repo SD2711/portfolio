@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
 type Project = {
-  title: string;
+  title?: string;
   images: string[];
 };
 
@@ -41,6 +41,7 @@ export const ProjectCard = ({ project, projects, activeIndex = 0, direction = 1 
   const totalImages = resolvedProject.images.length;
   const safeIndex = totalImages ? ((activeIndex % totalImages) + totalImages) % totalImages : 0;
   const currentImage = resolvedProject.images[safeIndex];
+  const imageAlt = resolvedProject.title ?? 'Project preview';
 
   return (
     <motion.div
@@ -58,7 +59,7 @@ export const ProjectCard = ({ project, projects, activeIndex = 0, direction = 1 
         padding="md"
         zIndex={2000}
       >
-        <Image src={currentImage} alt="Project preview" radius="md" />
+        <Image src={currentImage} alt={imageAlt} radius="md" />
       </Modal>
       <Card shadow="md" padding="lg" radius="md" withBorder>
         <Card.Section>
@@ -76,7 +77,7 @@ export const ProjectCard = ({ project, projects, activeIndex = 0, direction = 1 
                 <Image
                   src={currentImage}
                   height={200}
-                  alt={resolvedProject.title}
+                  alt={imageAlt}
                   style={{ cursor: 'pointer' }}
                   onClick={() => setOpened(true)}
                 />
