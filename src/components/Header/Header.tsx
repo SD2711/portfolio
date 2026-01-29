@@ -69,7 +69,14 @@ export function Header() {
           </ActionIcon>
           <Menu width={190} position="bottom-end" zIndex={2000}>
             <Menu.Target>
-              <Button variant="light" color="orange" radius="xl" size="sm" aria-label={t.header.language}>
+              <Button
+                variant="light"
+                color="orange"
+                radius="xl"
+                size="sm"
+                aria-label={t.header.language}
+                className={classes.languageButton}
+              >
                 <Text span className={classes.flag}>
                   {activeLanguage.flag}
                 </Text>

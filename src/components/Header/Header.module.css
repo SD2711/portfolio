@@ -57,3 +57,10 @@
   justify-content: center;
   min-width: 1.4rem;
 }
+
+.languageButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
